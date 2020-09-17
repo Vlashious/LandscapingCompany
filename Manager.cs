@@ -4,7 +4,7 @@ namespace LandscapingCompany
 {
     class Manager
     {
-        private IManager _manager;
+        private ManagerAbstract _manager;
         internal void Switch(string input)
         {
             switch (input)
