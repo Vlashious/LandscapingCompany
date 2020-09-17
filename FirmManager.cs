@@ -1,6 +1,6 @@
 namespace LandscapingCompany
 {
-    class FirmManager : IManager
+    class FirmManager : ManagerAbstract
     {
         public static FirmManager Manager { get; private set; }
         static FirmManager()
@@ -9,19 +9,17 @@ namespace LandscapingCompany
         }
         private FirmManager() { }
 
+        public override void Add()
+        {
+            _dbContext.AddToTable("firm", "Francysk", "vul. Savieckaja 63");
+        }
 
-
-        public void Add()
+        public override void Edit()
         {
 
         }
 
-        public void Edit()
-        {
-
-        }
-
-        public void Remove()
+        public override void Remove()
         {
 
         }
