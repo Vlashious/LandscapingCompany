@@ -25,28 +25,15 @@ namespace LandscapingCompany
             _connection.Close();
         }
 
-        public void AddToTable(string query)
+        public void ExecuteQuery(string query)
         {
             OpenConnection();
-
             using var cmd = new NpgsqlCommand(query, _connection);
 
             cmd.ExecuteNonQuery();
             CloseConnection();
 
-            Console.WriteLine($"Data to table has been inserted!");
-        }
-
-        public void UpdateInTable(string query)
-        {
-            OpenConnection();
-
-            using var cmd = new NpgsqlCommand(query, _connection);
-
-            cmd.ExecuteNonQuery();
-            CloseConnection();
-
-            Console.WriteLine("Data was updated.");
+            Console.WriteLine("Query executed!");
         }
 
         public void PrintTable(string table)
