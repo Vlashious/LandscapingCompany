@@ -22,6 +22,7 @@ namespace LandscapingCompany
 
         private static (string input, bool loop) GetInput()
         {
+            Console.Clear();
             Console.WriteLine("1 - add/edit/delete firm info");
             Console.WriteLine("2 - add/edit/delete parks info");
             Console.WriteLine("3 - add/edit/delete park zones info");
@@ -33,7 +34,6 @@ namespace LandscapingCompany
             Console.WriteLine("9 - get all specific plants on time and the watering regime for them");
             Console.WriteLine("0 - exit");
             var input = Console.ReadLine();
-
             return (input, input != "0");
         }
     }

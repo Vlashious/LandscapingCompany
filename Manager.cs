@@ -34,6 +34,9 @@ namespace LandscapingCompany
                     _manager.Remove();
                     break;
                 case "4":
+                    _manager.PrintTable();
+                    break;
+                case "5":
                     break;
                 default:
                     Console.WriteLine("Incorrect input.");
@@ -43,10 +46,12 @@ namespace LandscapingCompany
 
         private string GetInput()
         {
+            Console.Clear();
             Console.WriteLine("1 - add");
             Console.WriteLine("2 - edit");
             Console.WriteLine("3 - delete");
-            Console.WriteLine("4 - return");
+            Console.WriteLine("4 - print table");
+            Console.WriteLine("0 - return");
 
             return Console.ReadLine();
         }

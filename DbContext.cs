@@ -14,26 +14,81 @@ namespace LandscapingCompany
 
         private static string connectionString = "Host=localhost;Username=postgres;Password=postgres;Database=pbv";
         private NpgsqlConnection _connection = new NpgsqlConnection(connectionString);
-        private string _query = "";
 
         private void OpenConnection()
         {
             _connection.Open();
         }
 
-        public void AddToTable(string table, params string[] data)
+        private void CloseConnection()
+        {
+            _connection.Close();
+        }
+
+        public void AddToTable(string query)
         {
             OpenConnection();
-            _query = table switch
-            {
-                "firm" => $"INSERT INTO firm(name, address) VALUES('{data[0]}', '{data[1]}')",
-                _ => throw new Exception("Table does not exist.")
-            };
-            using var cmd = new NpgsqlCommand(_query, _connection);
+
+            using var cmd = new NpgsqlCommand(query, _connection);
 
             cmd.ExecuteNonQuery();
+            CloseConnection();
 
-            Console.WriteLine($"Data to table {table} has been inserted!");
+            Console.WriteLine($"Data to table has been inserted!");
+        }
+
+        public void UpdateInTable(string query)
+        {
+            OpenConnection();
+
+            using var cmd = new NpgsqlCommand(query, _connection);
+
+            cmd.ExecuteNonQuery();
+            CloseConnection();
+
+            Console.WriteLine("Data was updated.");
+        }
+
+        public void PrintTable(string table)
+        {
+            var query = $"SELECT * FROM {table}";
+            OpenConnection();
+
+            using var cmd = new NpgsqlCommand(query, _connection);
+            using var reader = cmd.ExecuteReader();
+            var data = GetColumnNames(reader);
+
+            Console.WriteLine(data.formatting, data.columns);
+            while (reader.Read())
+            {
+                Console.WriteLine(data.formatting, GetRowData(reader));
+            }
+
+            CloseConnection();
+        }
+
+        private (string[] columns, string formatting) GetColumnNames(NpgsqlDataReader reader)
+        {
+            string[] columns = new string[reader.VisibleFieldCount];
+            string formatting = "";
+            for (int i = 0; i < reader.VisibleFieldCount; i++)
+            {
+                columns[i] = reader.GetName(i);
+                formatting += "{" + i + ", -10}";
+            }
+
+            return (columns, formatting);
+        }
+
+        private string[] GetRowData(NpgsqlDataReader reader)
+        {
+            string[] data = new string[reader.VisibleFieldCount];
+            for (int i = 0; i < reader.VisibleFieldCount; i++)
+            {
+                data[i] = reader.GetValue(i).ToString();
+            }
+
+            return data;
         }
     }
 }
