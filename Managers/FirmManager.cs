@@ -4,10 +4,10 @@ namespace LandscapingCompany
 {
     class FirmManager : ManagerAbstract
     {
-        public static FirmManager Manager { get; private set; }
+        public static FirmManager Instance { get; private set; }
         static FirmManager()
         {
-            Manager = new FirmManager();
+            Instance = new FirmManager();
         }
         private FirmManager() { }
 
@@ -31,7 +31,7 @@ namespace LandscapingCompany
 
         public override void Remove()
         {
-            PrintTable();
+            _dbContext.PrintTable("firm");
             Console.WriteLine("Enter the id of the firm to delete: ");
             var id = Console.ReadLine();
 

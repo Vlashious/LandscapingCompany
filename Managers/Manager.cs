@@ -5,12 +5,15 @@ namespace LandscapingCompany
     class Manager
     {
         private ManagerAbstract _manager;
-        internal void Switch(string input)
+        public void Switch(string input)
         {
             switch (input)
             {
                 case "1":
-                    _manager = FirmManager.Manager;
+                    _manager = FirmManager.Instance;
+                    break;
+                case "2":
+                    _manager = ParkManager.Instance;
                     break;
                 default:
                     Console.WriteLine("Incorrect input.");
