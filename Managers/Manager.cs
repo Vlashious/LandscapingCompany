@@ -15,6 +15,9 @@ namespace LandscapingCompany
                 case "2":
                     _manager = ParkManager.Instance;
                     break;
+                case "3":
+                    _manager = ParkZoneManager.Instance;
+                    break;
                 default:
                     Console.WriteLine("Incorrect input.");
                     break;
