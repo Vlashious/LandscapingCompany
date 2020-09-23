@@ -24,6 +24,18 @@ namespace LandscapingCompany
                 case "5":
                     _manager = ParkWorkerManager.Instance;
                     break;
+                case "6":
+                    _manager = ParkDecoratorManager.Instance;
+                    break;
+                case "7":
+                    GetInfoManager.GetSpecificPlantInfo();
+                    return;
+                case "8":
+                    GetInfoManager.GetWorkerList();
+                    return;
+                case "9":
+                    GetInfoManager.GetPlantsOnSpecificDateAndTheirWateringRegime();
+                    return;
                 default:
                     Console.WriteLine("Incorrect input.");
                     break;

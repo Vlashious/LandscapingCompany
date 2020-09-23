@@ -54,6 +54,23 @@ namespace LandscapingCompany
             CloseConnection();
         }
 
+        public void PrintTableFromQuery(string query)
+        {
+            OpenConnection();
+
+            using var cmd = new NpgsqlCommand(query, _connection);
+            using var reader = cmd.ExecuteReader();
+            var data = GetColumnNames(reader);
+
+            Console.WriteLine(data.formatting, data.columns);
+            while (reader.Read())
+            {
+                Console.WriteLine(data.formatting, GetRowData(reader));
+            }
+
+            CloseConnection();
+        }
+
         private (string[] columns, string formatting) GetColumnNames(NpgsqlDataReader reader)
         {
             string[] columns = new string[reader.VisibleFieldCount];
