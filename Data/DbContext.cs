@@ -61,7 +61,7 @@ namespace LandscapingCompany
             for (int i = 0; i < reader.VisibleFieldCount; i++)
             {
                 columns[i] = reader.GetName(i);
-                formatting += "{" + i + ", -10}";
+                formatting += "{" + i + ", -15}";
             }
 
             return (columns, formatting);
